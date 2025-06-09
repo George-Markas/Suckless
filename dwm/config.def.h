@@ -65,6 +65,7 @@ static const char *roficmd[] = { "rofi", "-show", "drun", NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include <X11/XF86keysym.h>
+#include "movestack.c"
 
 static const Key keys[] = {
     /* modifier                     key        function        argument */
@@ -77,6 +78,8 @@ static const Key keys[] = {
     //{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
     { ControlMask,                  XK_Left,   setmfact,       {.f = -0.05} },
     { ControlMask,                  XK_Right,  setmfact,       {.f = +0.05} },
+    { MODKEY|ShiftMask,             XK_Left,   movestack,      {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_Right,  movestack,      {.i = -1 } },
     //{ MODKEY,                       XK_Return, zoom,           {0} },
     { MODKEY,                       XK_Tab,    view,           {0} },
     { MODKEY|ShiftMask,             XK_q,      killclient,     {0} },

@@ -2,7 +2,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 6};
+static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 5};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -17,7 +17,7 @@ static const char dmenufont[]       = "monospace:size=10";
 
 static const char normbgcolor[]     = "#282828";
 static const char normfgcolor[]     = "#928374"; 
-static const char normbordercolor[] = "#444444";
+static const char normbordercolor[] = "#585858";
 static const char selbgcolor[]      = "#3c3836";
 static const char selfgcolor[]      = "#d79921";
 static const char selbordercolor[]  = "#928374";

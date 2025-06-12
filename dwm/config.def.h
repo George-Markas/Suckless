@@ -14,16 +14,23 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Iosevka:size=14:antialias=true:autohint=true", "NotoColorEmoji:size=14:antialias=true:autohint=true" };
 static const char dmenufont[]       = "monospace:size=10";
-static const char normbgcolor[]     = "#222222";
-static const char normfgcolor[]     = "#bbbbbb"; 
+
+static const char normbgcolor[]     = "#282828";
+static const char normfgcolor[]     = "#928374"; 
 static const char normbordercolor[] = "#444444";
-static const char selbgcolor[]      = "#005577";
-static const char selfgcolor[]      = "#eeeeee";
-static const char selbordercolor[]  = "#005577";
+static const char selbgcolor[]      = "#3c3836";
+static const char selfgcolor[]      = "#d79921";
+static const char selbordercolor[]  = "#928374";
+
 static const char *colors[][3]      = {
-    /*               fg           bg           border   */
-    [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-    [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+    /*                   fg           bg           border   */
+    [SchemeNorm]     = { normfgcolor, normbgcolor, normbordercolor },
+    [SchemeSel]      = { selfgcolor,  selbgcolor,  selbordercolor  },
+    [SchemeStatus]   = { "#c8c09f",   normbgcolor, "#000000"       }, // Statusbar right {text, background, not used but cannot be empty}
+    [SchemeTagsSel]  = { selfgcolor,  selbgcolor,  "#000000"       }, // Tagbar left selected {text, background, not used but cannot be empty}
+    [SchemeTagsNorm] = { normfgcolor, normbgcolor, "#000000"       }, // Tagbar left unselected {text, background, not used but cannot be empty}
+    [SchemeInfoSel]  = { "#c8c09f",   selbgcolor,  "#000000"       }, // Infobar middle selected {text, background, not used but cannot be empty}
+    [SchemeInfoNorm] = { normfgcolor, normbgcolor, "#000000"       }, // Infobar middle unselected {text, background, not used but cannot be empty}
 };
 
 /* tagging */
@@ -81,8 +88,8 @@ static const Key keys[] = {
     { MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
     { MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
-    //{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-    //{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+    { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+    { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
     { ControlMask,                  XK_Left,   setmfact,       {.f = -0.05} },
     { ControlMask,                  XK_Right,  setmfact,       {.f = +0.05} },
     { MODKEY|ShiftMask,             XK_Left,   movestack,      {.i = +1 } },

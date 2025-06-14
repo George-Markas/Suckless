@@ -5,11 +5,11 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "JetBrainsMonoNL Nerd Font:size=12:antialias=true:autohint=true";
+static char *font = "JetBrainsMonoNL Nerd Font:size=14:antialias=true:autohint=true";
 static int borderpx = 2;
 /* Spare fonts */
 static char *font2[] = {
-    "NotoColorEmoji:size=12:antialias=true:autohint=true",
+    "NotoColorEmoji:size=14:antialias=true:autohint=true",
 };
 
 /*
@@ -98,7 +98,7 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.8;
+float alpha = 0.87;
 
 #include "Colorschemes/gruvbox.h"
 

@@ -11,7 +11,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;        /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Iosevka:size=14:antialias=true:autohint=true", "NotoColorEmoji:size=14:antialias=true:autohint=true" };
+static const char *fonts[]          = { "Iosevka:size=13:antialias=true:autohint=true", "NotoColorEmoji:size=13:antialias=true:autohint=true" };
 static const char dmenufont[]       = "monospace:size=10";
 
 static const char normbgcolor[]     = "#282828";
@@ -87,8 +87,8 @@ static const Key keys[] = {
 	{ ControlMask,                  XK_d,      incnmaster,     {.i = -1 } },
 	{ ControlMask,                  XK_Left,   setmfact,       {.f = -0.05} },
 	{ ControlMask,                  XK_Right,  setmfact,       {.f = +0.05} },
-    { MODKEY|ShiftMask,             XK_Left,   movestack,      {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_Right,  movestack,      {.i = -1 } },
+    	{ MODKEY|ShiftMask,             XK_Left,   movestack,      {.i = +1 } },
+    	{ MODKEY|ShiftMask,             XK_Right,  movestack,      {.i = -1 } },
 	//{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },

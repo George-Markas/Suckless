@@ -1,7 +1,7 @@
 // Modify this file to change what commands output to your statusbar, and recompile using the make command.
 static const Block blocks[] = {
-    /* Icon     Command             		    Interval   Signal */
-    {  "",      "volume.sh",                    0,         8},
+    /* Icon     Command				    Interval   Signal */
+	{  "",      "volume.sh",                    0,         8},
 	{  "",      "date '+%a %d/%m/%y %H:%M'",    1,         0},
 };
 

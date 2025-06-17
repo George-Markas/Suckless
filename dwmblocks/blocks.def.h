@@ -2,6 +2,8 @@
 static const Block blocks[] = {
     /* Icon     Command				    Interval   Signal */
 	{  "",      "volume.sh",                    0,         8},
+	{  "",	    "cpu_temp.sh",		    3,	       0},
+	{  "",      "battery.sh",		    4,         0},	       
 	{  "",      "date '+%a %d/%m/%y %H:%M'",    1,         0},
 };
 

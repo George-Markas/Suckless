@@ -5,7 +5,7 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayonleft =  0;   /* 0: systray in the right corner, >0: systray on left of status text */
+static const unsigned int systrayonleft  = 0;   /* 0: systray in the right corner, >0: systray on left of status text */
 static const unsigned int systrayspacing = 4;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;        /* 0 means no systray */
@@ -25,8 +25,6 @@ static const Rule rules[] = {
      *  WM_NAME(STRING) = title
      */
     /* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-    { "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
-    { "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
     { "st",      NULL,     NULL,           0,         0,          1,           0,        -1 },
     { NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
@@ -58,8 +56,18 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[] = { "st", NULL };
+static const char *dmenucmd[]    = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static const char *termcmd[]     = { "st", NULL };
+static const char *rofi[]        = { "rofi", "-show", "drun", NULL };
+static const char *filemanager[] = { "pcmanfm", NULL };
+static const char *volup[]       = { "wpctl", "set-volume", "-l", "1.0", "@DEFAULT_AUDIO_SINK@", "5%+", NULL };
+static const char *voldown[]     = { "wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-", NULL };
+static const char *volmute[]     = { "wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle", NULL };
+static const char *brightup[]    = { "brightnessctl", "set", "5%+", NULL };
+static const char *brightdown[]  = { "brightnessctl", "set", "5%-", NULL }; 
+static const char *audiopause[]  = { "playerctl play-pause", NULL };
+static const char *audioprev[]   = { "playerctl previous", NULL };
+static const char *audionext[]   = { "playerctl next", NULL };
 
 #include <X11/XF86keysym.h>
 #include "movestack.c"
@@ -67,6 +75,8 @@ static const char *termcmd[] = { "st", NULL };
 static const Key keys[] = {
     /* modifier                     key        function        argument */
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+    { MODKEY,                       XK_d,      spawn,          {.v = rofi} },
+    { MODKEY,                       XK_e,      spawn,          {.v = filemanager} },
     { MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,                       XK_Left,   focusstack,     {.i = +1 } },
     { MODKEY,                       XK_Right,  focusstack,     {.i = -1 } },
@@ -74,8 +84,8 @@ static const Key keys[] = {
     { ControlMask,                  XK_d,      incnmaster,     {.i = -1 } },
     { ControlMask,                  XK_Left,   setmfact,       {.f = -0.05} },
     { ControlMask,                  XK_Right,  setmfact,       {.f = +0.05} },
-        { MODKEY|ShiftMask,             XK_Left,   movestack,      {.i = +1 } },
-        { MODKEY|ShiftMask,             XK_Right,  movestack,      {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_Left,   movestack,      {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_Right,  movestack,      {.i = -1 } },
     //{ MODKEY,                       XK_Return, zoom,           {0} },
     { MODKEY,                       XK_Tab,    view,           {0} },
     { MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
@@ -90,6 +100,15 @@ static const Key keys[] = {
     { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
     { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
     { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+    { ControlMask|ShiftMask,        XK_m,      quit,           {0} },
+    { 0,             XF86XK_AudioRaiseVolume,  spawn,          {.v = volup} },
+    { 0,             XF86XK_AudioLowerVolume,  spawn,          {.v = voldown} },
+    { 0,             XF86XK_AudioMute,         spawn,          {.v = volmute} },
+    { 0,             XF86XK_MonBrightnessUp,   spawn,          {.v = brightup} },
+    { 0,             XF86XK_MonBrightnessDown, spawn,          {.v = brightdown} },
+    { 0,             XF86XK_AudioPlay,         spawn,          {.v = audiopause} },
+    { 0,             XF86XK_AudioNext,         spawn,          {.v = audionext} },
+    { 0,             XF86XK_AudioPrev,         spawn,          {.v = audioprev} },
     TAGKEYS(                        XK_1,                      0)
     TAGKEYS(                        XK_2,                      1)
     TAGKEYS(                        XK_3,                      2)
@@ -99,17 +118,6 @@ static const Key keys[] = {
     TAGKEYS(                        XK_7,                      6)
     TAGKEYS(                        XK_8,                      7)
     TAGKEYS(                        XK_9,                      8)
-    { ControlMask|ShiftMask,        XK_m,      quit,           {0} },
-    { MODKEY,                       XK_d,      spawn, SHCMD("rofi -show drun") },
-    { MODKEY,                       XK_e,      spawn, SHCMD("pcmanfm") },
-    { 0,             XF86XK_AudioRaiseVolume,  spawn, SHCMD("wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+; kill -42 $(pidof dwmblocks)") },
-    { 0,             XF86XK_AudioLowerVolume,  spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -42 $(pidof dwmblocks)") },
-    { 0,             XF86XK_AudioMute,         spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -42 $(pidof dwmblocks)") },
-    { 0,             XF86XK_MonBrightnessUp,   spawn, SHCMD("brightnessctl set 5%+") },
-    { 0,             XF86XK_MonBrightnessDown, spawn, SHCMD("brightnessctl set 5%-") },
-    { 0,             XF86XK_AudioPlay,         spawn, SHCMD("playerctl play-pause") },
-    { 0,             XF86XK_AudioNext,         spawn, SHCMD("playerctl next") },
-    { 0,             XF86XK_AudioPrev,         spawn, SHCMD("playerctl previous") },
 };
 
 /* button definitions */

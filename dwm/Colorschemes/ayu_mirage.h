@@ -1,6 +1,6 @@
 static const char normbgcolor[]     = "#1f2430";
 static const char normfgcolor[]     = "#cccac2";
-static const char normbordercolor[] = "#1f2430";
+static const char normbordercolor[] = "#555555";
 static const char selbgcolor[]      = "#333c50";
 static const char selfgcolor[]      = "#cccac2";
 static const char selbordercolor[]  = "#f28779";

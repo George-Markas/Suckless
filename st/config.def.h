@@ -100,7 +100,7 @@ unsigned int tabspaces = 8;
 /* bg opacity */
 float alpha = 0.80;
 
-#include "Colorschemes/gruvbox.h"
+#include "Colorschemes/ayu_mirage.h"
 
 /*
  * Default shape of cursor
